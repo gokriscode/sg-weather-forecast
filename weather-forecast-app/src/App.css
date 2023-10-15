@@ -28,6 +28,17 @@
   color: #61dafb;
 }
 
+.weather-icon {
+  font-size: 80px;
+}
+
+.weather-not-found {
+  background-position: 50% 50%;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -36,3 +47,5 @@
     transform: rotate(360deg);
   }
 }
+
+@import url(https://cdnjs.cloudflare.com/ajax/libs/weather-icons/1.2/css/weather-icons.min.css);

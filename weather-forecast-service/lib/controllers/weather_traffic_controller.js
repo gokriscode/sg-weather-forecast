@@ -17,7 +17,27 @@ class WeatherTrafficController {
                 if(response.hasOwnProperty('status') && response.status == 404)
                     context.done(null, SendResponse(401, response))
                 else{
-                    debug("Controller response ", response)
+                    context.done(null, SendResponse(200, response));
+                }
+            })
+            .catch(function(err){
+                debug("Get WeatherTraffics ", err)
+                context.done(null, SendResponse(500, err));
+            })
+    }
+
+    getTrafficImage(event, context) {
+        debug("Get Traffic Images")
+        format_headers_body(event.headers, event.body)
+            .then(function (response) {
+                var date_time = event.queryParameters.date_time
+                var location_name = event.queryParameters.location_name
+                return serviceWeatherTraffic.getTrafficImages(date_time, location_name)
+            })
+            .then(function(response){
+                if(response.hasOwnProperty('status') && response.status == 404)
+                    context.done(null, SendResponse(401, response))
+                else{
                     context.done(null, SendResponse(200, response));
                 }
             })

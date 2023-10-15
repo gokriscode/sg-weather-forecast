@@ -10,9 +10,9 @@ const reducers = {
     state.locations = action.payload;
     state.location = null;
   },
-  getLocation(state, action) {
+  getTrafficImages(state, action) {
     state.location = action.payload;
-    state.locations = [];
+    // state.locations = [];
   },
   
 };

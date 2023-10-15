@@ -7,6 +7,13 @@ const getLocations = (params) => async (dispatch) => {
   dispatch(slice.actions.getLocations(response));
 };
 
+const getTrafficImages = (params) => async (dispatch) => {
+  const response = await locationApi.getTrafficImages(params);
+
+  dispatch(slice.actions.getTrafficImages(response));
+};
+
 export const thunks = {
   getLocations,
+  getTrafficImages
 };

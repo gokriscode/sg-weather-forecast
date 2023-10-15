@@ -6,18 +6,22 @@ import { useEffect, useState } from 'react';
 import moment from 'moment';
 import { useDispatch, useSelector } from './store';
 import { thunks } from './thunks/locations';
-import LightModeIcon from '@mui/icons-material/LightMode';
-import { pink, yellow } from '@mui/material/colors';
+import { LocationComponent } from './components/location-component';
+import { ForecastComponent } from './components/forecast-component';
+import { TrafficImageComponent } from './components/trafficimage-component';
 
 function App() {
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(new Date(moment().startOf('day')));
   const dispatch = useDispatch();
-  const locationResponse = useSelector(state => state.locations.locations);
+  const locationsResponse = useSelector(state => state.locations.locations);
+  const locationDetailResponse = useSelector(state => state.locations.location);
   const [locations, setLocations] = useState(null);
   const [location, setLocation] = useState(null);
+  const [locationDetail, setLocationDetail] = useState(null)
   const [index, setIndex] = useState(0);
 
   const handleDateChange = (date) => {
+    console.log("Date change")
     setDate(date)
   }
 
@@ -29,18 +33,37 @@ function App() {
   }
 
   useEffect(() => {
-    const dateFormat = moment(date).format("YYYY-MM-DDThh:mm:ss");
+    const dateFormat = moment(date).format("YYYY-MM-DDTHH:mm:ss");
     handleLocation(dateFormat)
   }, [date])
 
   useEffect(() => {
-    setLocations(locationResponse);
-    setLocation(locationResponse[0]);
-  }, [locationResponse])
+    if(locationsResponse?.locations?.length > 0) {
+      setLocations(locationsResponse?.locations);
+      setLocation(locationsResponse?.locations[0]);
+      handleListChange(locationsResponse?.locations[0], 0)
+    }
+  }, [locationsResponse])
 
-  const handleListChange = (location, i) => {
-    setLocation(location);
-    setIndex(i)
+  useEffect(() => {
+    if(locationDetailResponse) {
+      setLocationDetail(locationDetailResponse)
+    }
+
+  }, [locationDetailResponse])
+
+  const handleListChange = async (locationDetail, i) => {
+    console.log("List change",locationDetail, i)
+    setLocation(locationDetail);
+    setIndex(i);
+    if(locationDetail) {
+      const request = {
+        dateTime: moment(date).format("YYYY-MM-DDTHH:mm:ss"),
+        locationName: locationDetail?.name
+      }
+      await dispatch(thunks.getTrafficImages(request))
+
+    }
   }
 
   return (
@@ -54,61 +77,19 @@ function App() {
       >
         <Container maxWidth="xl">
           <Grid item md={12}>
-            <DateTimePicker onChange={handleDateChange} value={date}></DateTimePicker>
+            <DateTimePicker format='dd-MM-yyyy HH:mm:ss' onChange={handleDateChange} value={date}></DateTimePicker>
           </Grid>
 
           <Grid container spacing={4}>
             <Grid mt={5} item md={6} xs={12}>
-              {/* <Box sx={}> */}
-              <List sx={{
-                width: '100%',
-                position: 'relative',
-                overflow: 'auto',
-                maxHeight: 250
-              }}>
-                {
-                  locations && locations.length > 0 ?
-                    locations.map((location, i) => {
-                      return (
-                        <ListItem key={i} sx={{ cursor: 'pointer', bgcolor: index === i ? 'gray' : null }} onClick={() => handleListChange(location, i)}>
-                          <ListItemText>{location.name}</ListItemText>
-                        </ListItem>
-                      )
-                    })
-                    : (
-                      <ListItem>
-                        <ListItemText>No Locations</ListItemText>
-                      </ListItem>
-                    )
-                }
-              </List>
-              {/* </Box> */}
+              <LocationComponent locations={locations} handleListChange={handleListChange}></LocationComponent>
             </Grid>
             <Grid mt={5} item md={6} xs={12}>
-              <Box display="flex"
-                justifyContent="center"
-                alignItems="center"
-                sx={{ border: 1, height: 200, bgcolor: 'black' }}>
-                <LightModeIcon sx={{ color: yellow[500], fontSize: 58 }} />
-              </Box>
-              <Box display="flex"
-                justifyContent="center"
-                alignItems="center"
-                sx={{ border: 1, height: 60, bgcolor: 'yellow' }}>
-                <Typography color="black">
-                  {location?.forecast}
-                </Typography>
-              </Box>
-
+              <ForecastComponent location={location} />
             </Grid>
             <Grid item md={2} mt={2}></Grid>
             <Grid item md={8} xs={12} mt={2}>
-              {
-                location?.imagedata.length > 0 ?
-                  <img style={{ width: '100%' }} src={location?.imagedata[0].image} />
-                  : null
-              }
-
+              <TrafficImageComponent locationDetail={locationDetail} />
             </Grid>
           </Grid>
         </Container>

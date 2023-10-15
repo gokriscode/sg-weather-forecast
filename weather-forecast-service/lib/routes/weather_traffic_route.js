@@ -25,5 +25,18 @@ router.get('/locations',  function (req, res) {
   })
 })
 
+router.get('/trafficimages',  function (req, res) {
+  event.headers = req.headers;
+  event.queryParameters =req.query;
+  event.pathParameters = req.params;
+  controllerWeatherTraffic.getTrafficImage(event, {
+    done: function (rescode, resmsg) {
+      res.header(resmsg.headers);
+      res.status(resmsg.statusCode)
+      res.send(resmsg.body)
+    }
+  })
+})
+
 
 module.exports = router;

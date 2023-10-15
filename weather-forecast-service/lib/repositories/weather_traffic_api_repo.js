@@ -30,7 +30,6 @@ class WeatherTrafficApiRepo {
             try {
                 axios.get(process.env.GOV_DATA_URL+ '/environment/2-hour-weather-forecast?date_time='+searchdatetime).
                 then(resp => {
-                    console.log(resp.data);
                     resolve(resp.data)
                 })
                 .catch( (err) => {
