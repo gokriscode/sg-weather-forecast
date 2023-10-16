@@ -20,13 +20,13 @@ export class WeatherTrafficService {
     getLocations(date_time:string):any {
         return this.repoWeatherTraffic.getLocations(date_time)
         .then((weatherData : any)=>{
-            debug("Service Data received ", weatherData)
+            // debug("Service Data received ", weatherData)
           
             let locations = new Map()
 
             for(var idx = 0; idx<weatherData['area_metadata'].length; idx++){
                 var locationdata = weatherData['area_metadata'][idx];
-                debug("Location ", locationdata)
+                // debug("Location ", locationdata)
                 locations.set(locationdata.name, {
                     name: locationdata.name,
                     latitude: locationdata.label_location.latitude,
@@ -35,7 +35,7 @@ export class WeatherTrafficService {
             }
             for(var idx = 0; idx<weatherData['items'][0].forecasts.length; idx++){
                 var forecastdata = weatherData['items'][0].forecasts[idx];
-                debug("Forecast ", forecastdata)
+                // debug("Forecast ", forecastdata)
                 var locationdata = locations.get(forecastdata.area)
                 locations.set(locationdata.name, {
                     ...locationdata,
@@ -49,7 +49,7 @@ export class WeatherTrafficService {
                 locationsResponse.push(value)
             }
 
-            debug("Return locations data ", locationsResponse)
+            // debug("Return locations data ", locationsResponse)
             return  {
                 locations: locationsResponse
             }

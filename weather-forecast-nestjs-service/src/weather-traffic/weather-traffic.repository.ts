@@ -52,7 +52,7 @@ export class WeatherTrafficRepository {
             debug("Get Traffic Image Data from Cache, Date time", date_time)
             resolve(traffic_map);
         }else{
-            debug("Get Traffic Image Data from Server, Date time", date_time)
+            debug("Get Traffic Image Data from Server, Date time", date_time, process.env.GOV_DATA_URL+ '/transport/traffic-images?date_time='+date_time)
            
             let resquest = this.http
             .get(process.env.GOV_DATA_URL+ '/transport/traffic-images?date_time='+date_time)

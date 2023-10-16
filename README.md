@@ -67,8 +67,7 @@ set PORT=4000 && npm run start:dev
 
 Your NestJS application from the Git repository's subfolder is now running in the development environment on port 4000. You can access your RESTful API by opening a web browser or using a tool like [curl](https://curl.se/) or [Postman](https://www.postman.com/), and making HTTP requests to `http://localhost:4000`.
 
-You're now ready to develop and test the NestJS service from the specified subfolder of the Git repository. Remember to refer to the project's documentation or README for any specific instructions related to this service.
-
+You're now ready to develop and test the NestJS service from the specified subfolder of the Git repository. 
 
 ### 2. Setup Web Application
 
