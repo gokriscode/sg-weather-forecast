@@ -87,16 +87,15 @@ Steps:
    - Run the following command to clone the repository:
 
    ```
-   git clone <repository_url>
+   git clone https://github.com/gokriscode/sg-weather-forecast.git
    ```
 
-   Replace `<repository_url>` with the URL of the Git repository where the project is hosted.
 
 2. Navigate to the Project Directory:
    - Change your current directory to the project folder by running:
 
    ```
-   cd sample-weather-forecast-app
+   cd sg-weather-forecast/weather-forecast-app
    ```
 
 3. Install Dependencies:
