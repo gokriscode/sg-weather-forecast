@@ -13,24 +13,24 @@ Follow these steps to set up and start your NestJS application in a development 
 
 **Prerequisites:**
 
+**Instructions to Start the NestJS App from a Git Repository and Subfolder:**
+
 1. Ensure you have Node.js and npm (Node Package Manager) installed on your system. You can download them from [nodejs.org](https://nodejs.org/).
 
-**Step 1: Create a NestJS Application**
+**Step 1: Clone the Git Repository**
 
-Open your terminal and navigate to the directory where you want to create your NestJS application. Then, run the following command to create a new NestJS project using the Nest CLI:
+Open your terminal and navigate to the directory where you want to clone the Git repository. Then, run the following command to clone the repository:
 
 ```bash
-npx @nestjs/cli new project-name
+git clone https://github.com/gokriscode/sg-weather-forecast.git
 ```
 
-Replace `project-name` with the name of your project.
+**Step 2: Navigate to the Subfolder**
 
-**Step 2: Navigate to the Project Directory**
-
-Navigate into the project directory:
+Navigate into the `weather-forecast-nestjs-service` subfolder of the cloned repository:
 
 ```bash
-cd project-name
+cd sg-weather-forecast/weather-forecast-nestjs-service
 ```
 
 **Step 3: Install Dependencies**
@@ -49,13 +49,15 @@ To start your NestJS application in the development environment, use the followi
 npm run start:dev
 ```
 
-This command will start your NestJS server, and by default, it will listen on port 3000. To run it on port 4000 as specified, you can set the `PORT` environment variable. For instance, on Unix-based systems, you can do this:
+This command will start your NestJS server, and by default, it will listen on port 3000. To run it on port 4000 as specified, you can set the `PORT` environment variable, just like in the previous instructions:
+
+On Unix-based systems:
 
 ```bash
 PORT=4000 npm run start:dev
 ```
 
-On Windows, you can set the environment variable using `set`:
+On Windows:
 
 ```bash
 set PORT=4000 && npm run start:dev
@@ -63,9 +65,9 @@ set PORT=4000 && npm run start:dev
 
 **Step 5: Access Your API**
 
-Your NestJS application is now running in the development environment on port 4000. You can access your RESTful API by opening a web browser or using a tool like [curl](https://curl.se/) or [Postman](https://www.postman.com/), and making HTTP requests to `http://localhost:4000`.
+Your NestJS application from the Git repository's subfolder is now running in the development environment on port 4000. You can access your RESTful API by opening a web browser or using a tool like [curl](https://curl.se/) or [Postman](https://www.postman.com/), and making HTTP requests to `http://localhost:4000`.
 
-You're now ready to develop and test your NestJS application in your development environment. Remember to refer to the official NestJS documentation for more details on building and deploying your RESTful API.
+You're now ready to develop and test the NestJS service from the specified subfolder of the Git repository. Remember to refer to the project's documentation or README for any specific instructions related to this service.
 
 
 ### 2. Setup Web Application
